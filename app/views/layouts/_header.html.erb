@@ -1,0 +1,29 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-success">
+    <a class="navbar-brand" href="<%= urls_path %>">TinyApp</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="#navbarNavAltMarkup"
+      aria-expanded="navbarNavAltMarkup"
+      aria-label="Toggle navigation" >
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav" >
+        <a class="nave-iten nav-link" href="<%= urls_path %>">My URLs</a>
+        <a class="nave-iten nav-link" href="<%= new_url_path %>">Create New URL</a>
+        <% if current_user %>
+          <span class="nav-item nav-link">
+            Welcome, <%= current_user.email %>!
+          </span>
+          <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-warning form-inline" %>
+        <% else %>
+          <a class="nave-iten nav-link" href="<%= new_user_path %>">Register</a>
+          <a class="nave-iten nav-link" href="<%= login_path %>">Loginr</a>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+</header>
