@@ -16,37 +16,24 @@
 
 <body>
   <%= render "layouts/header" %>
-
+  
   <main style="margin: 1em;">
-    <h3>My URLs</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Short URL ID</th>
-          <th scope="col">Long URL</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @urls.each do |url| %>
-          <tr>
-            <td><%= url.short_url %></td>
-            <td><%= url.long_url %></td>
-            <td>
-              <%= link_to "Edit", edit_url_path(url), class: "btn btn-primary" %>
-            </td>
-            <td>
-              <%= button_to "Delete", url_path(url), method: :delete, class: "btn btn-danger" %>
-            </td>
-          </tr>
-          <% end %>
-      </tbody>
-    </table>
+    <h1>Create Account</h1>
+    <%= form_with mode: @user, url: users_path, method :post do |form| %>
+    <div class="form-group">
+      <%= form.label :email, "email: " %>
+      <%= form.email_field :email, class: "form-control", placeholder: "email" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :password, "password" %>
+      <%= form.password_field :password, class: "form-control", placeholder: "passwprd" %>
+    </div>
+    <%= form.submit "Register!", class: "btn btn-primary" %>
+    <% end %>
   </main>
 
-  <!-- Bootstrap JS -->
-  <script
+    <!-- Bootstrap JS -->
+    <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous" ></script>
