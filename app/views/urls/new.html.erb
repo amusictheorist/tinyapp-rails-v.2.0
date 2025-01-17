@@ -19,13 +19,15 @@
 
   <main style="margin: 1em;">
     <h3>Create TinyURL</h3>
-    <%= form_with url: urls_path, method: :post, class: "form-inline" do |form| %>
+    <%= form_with model: @url, local: true do |form| %>
     <div class="form-group mb-2">
-      <%= form.label :long_url, "Enter a URL: ", class: "sr-only" %>
-      <%= form.text_field :long_url, class: "form-control", placeholder="http://", style="width: 300px; margin: 1em" %>
+      <%= form.label :long_url, "Enter a URL:" %>
+      <%= form.text_field :long_url, placeholder: "http://", class: "form-control", style: "width: 300px; margin: 1em" %>
       <%= form.submit "Submit", class: "btn btn-primary" %>
     </div>
     <% end %>
+
+
   </main>
 
       <!-- Bootstrap JS -->
