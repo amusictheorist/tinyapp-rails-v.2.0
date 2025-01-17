@@ -19,14 +19,14 @@
 
   <main style="margin: 1em;">
     <h1>Login</h1>
-    <%= form_with url: login_path, method: :post do |form| %>
+    <%= form_with url: login_path, method: :post, local: true  do |form| %>
     <div class="form-group">
-      <%= form.label :email, "email: " %>
+      <%= form.label :email, "Email: " %>
       <%= form.email_field :email, class: "form-control", placeholder: "email" %>
     </div>
     <div class="form-group">
       <%= form.label :password, "Password: " %>
-      <%= form.password_field, class: "form-control", placeholder: "password" %>
+      <%= form.password_field :password, class: "form-control", placeholder: "password" %>
     </div>
     <%= form.submit "Log in!", class: "btn btn-primary" %>
     <% end %>

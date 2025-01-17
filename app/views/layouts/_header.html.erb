@@ -6,22 +6,23 @@
       type="button"
       data-toggle="collapse"
       data-target="#navbarNavAltMarkup"
-      aria-controls="#navbarNavAltMarkup"
-      aria-expanded="navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
       aria-label="Toggle navigation" >
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav" >
-        <a class="nave-iten nav-link" href="<%= urls_path %>">My URLs</a>
-        <a class="nave-iten nav-link" href="<%= new_url_path %>">Create New URL</a>
+        <a class="nav-item nav-link" href="<%= urls_path %>">My URLs</a>
+        <a class="nav-item nav-link" href="<%= new_url_path %>">Create New URL</a>
+        
         <% if current_user %>
           <span class="nav-item nav-link">
             Welcome, <%= current_user.email %>!
           </span>
           <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-warning form-inline" %>
         <% else %>
-          <a class="nave-iten nav-link" href="<%= new_user_path %>">Register</a>
-          <a class="nave-iten nav-link" href="<%= login_path %>">Loginr</a>
+          <a class="nav-item nav-link" href="<%= new_user_path %>">Register</a>
+          <a class="nav-item nav-link" href="<%= login_path %>">Login</a>
         <% end %>
       </div>
     </div>
