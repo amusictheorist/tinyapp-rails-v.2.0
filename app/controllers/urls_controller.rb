@@ -1,4 +1,6 @@
 class UrlsController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -19,11 +21,13 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     @url.short_url = generate_random_string
+    @url.user_id = current_user.id
+    Rails.logger.debug("URL params: #{@url.inspect}")
     
     if @url.save
       redirect_to @url, notice: 'URL successfully created'
     else
-      flash.now[:alert] = @url.errors.full_messages.to_sentence
+      Rails.logger.error(@url.errors.full_messages.join(", "))
       render :new
     end
   end

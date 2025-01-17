@@ -1,5 +1,5 @@
 module ApplicationHelper
   def generate_random_string
-    SecureRandom.alphanumeric(6)
+    SecureRandom.urlsafe_base64(6)
   end
 end
