@@ -27,9 +27,9 @@ Rails.application.routes.draw do
   resources :urls, only: [:index, :new, :create, :show, :edit, :update, :destroy], param: :short_url
   resources :users, only: [:new, :create, :show]
 
-  get '/login', to: 'users#login'
+  get '/login', to: 'users#login', as: :login
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: :logout
-  get '/register', to: 'users#new'
+  get '/register', to: 'users#register', as: :register
   post '/register', to: 'users#create'
 end

@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   def login
-    render 'users/login'
+    render :login
   end
 
   def new
     @user = User.new
-    render 'users/register'
+    render :register
   end
 
   def create
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       redirect_to root_path, notice: "Welcome, #{@user.email}!"
     else
       flash.now[:alert] = 'There was a problem creating your account.'
-      render 'users/register'
+      render :register
     end
   end
 

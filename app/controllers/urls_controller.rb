@@ -1,6 +1,7 @@
 class UrlsController < ApplicationController
   include ApplicationHelper
 
+  before_action :require_login
   before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -68,5 +69,11 @@ class UrlsController < ApplicationController
 
   def url_params
     params.require(:url).permit(:short_url, :long_url, :user_id)
+  end
+
+  def require_login
+    unless logged_in?
+      redirect_to login_path, alert: 'You must log in to access this page!'
+    end
   end
 end
