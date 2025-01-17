@@ -18,8 +18,8 @@ class UrlsController < ApplicationController
   
   def create
     @url = Url.new(url_params)
-    @url.long_url = "http://#{@url.long_url}" unless @url.long_url.start_with?('http://', 'https://')
-    @url.user_id = current_user.id
+    @url.short_url = generate_random_string
+    
     if @url.save
       redirect_to @url, notice: 'URL successfully created'
     else
