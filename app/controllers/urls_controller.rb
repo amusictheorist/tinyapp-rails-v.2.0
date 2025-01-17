@@ -18,10 +18,13 @@ class UrlsController < ApplicationController
   
   def create
     @url = Url.new(url_params)
+    @url.long_url = "http://#{@url.long_url}" unless @url.long_url.start_with?('http://', 'https://')
+    @url.user_id = current_user.id
     if @url.save
       redirect_to @url, notice: 'URL successfully created'
     else
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = @url.errors.full_messages.to_sentence
+      render :new
     end
   end
   
