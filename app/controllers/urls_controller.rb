@@ -38,8 +38,16 @@ class UrlsController < ApplicationController
   end
 
   def destroy
-    @url.destroy
-    redirect_to urls_url, notice: 'URL successfully deleted'
+    @url = Url.find_by(short_url: params[:short_url])
+
+    if @url.nil?
+      redirect_to urls_path, alert: 'URL not found'
+    elsif @url.user_id != current_user.id
+      redirect_to urls_path, alert: 'You are not authorized to delete this URL!'
+    else
+      @url.destroy
+    redirect_to urls_path, notice: 'URL successfully deleted'
+    end
   end
 
   private
