@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-  before_action :set_url, only [:show, :update, :destroy]
+  before_action :set_url, only: [:show, :update, :destroy]
 
   def index
     @urls = Url.all
