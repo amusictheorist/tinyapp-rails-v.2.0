@@ -1,17 +1,21 @@
 class UrlsController < ApplicationController
-  before_action :set_url, only [:show, :update, :destroy]
+  before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   def index
     @urls = Url.all
   end
 
   def show
+    @url = Url.find_by(short_url: params[:short_url])
+    if @url.nil?
+      redirect_to urls_path, alert: 'URL not found'
+    end
   end
-
+  
   def new
     @url = Url.new
   end
-
+  
   def create
     @url = Url.new(url_params)
     @url.short_url = generate_random_string
@@ -19,11 +23,13 @@ class UrlsController < ApplicationController
     if @url.save
       redirect_to @url, notice: 'URL successfully created'
     else
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = @url.errors.full_messages.to_sentence
+      render :new
     end
   end
-
+  
   def edit
+    render 'urls/show'
   end
 
   def update
@@ -35,14 +41,25 @@ class UrlsController < ApplicationController
   end
 
   def destroy
-    @url.destroy
-    redirect_to urls_url, notice: 'URL successfully deleted'
+    @url = Url.find_by(short_url: params[:short_url])
+
+    if @url.nil?
+      redirect_to urls_path, alert: 'URL not found'
+    elsif @url.user_id != current_user.id
+      redirect_to urls_path, alert: 'You are not authorized to delete this URL!'
+    else
+      @url.destroy
+    redirect_to urls_path, notice: 'URL successfully deleted'
+    end
   end
 
   private
 
   def set_url
-    @url = Url.find(params[:id])
+    @url = Url.find_by(short_url: params[:short_url])
+    unless @url
+      redirect_to urls_path, alert: 'URL not found'
+    end
   end
 
   def url_params
