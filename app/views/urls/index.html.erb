@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-    <link
+  <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -31,16 +31,36 @@
       <tbody>
         <% @urls.each do |url| %>
           <tr>
-            <td><%= url.short_url %></td>
-            <td><%= url.long_url %></td>
             <td>
-              <%= link_to "Edit", edit_url_path(url), class: "btn btn-primary" %>
+              <a href="<%= url.long_url %>" target="_blank">
+                <%= url.short_url %>
+              </a>
             </td>
             <td>
-              <%= button_to "Delete", url_path(url), method: :delete, class: "btn btn-danger" %>
+              <a href="<%= url.long_url %>" target="_blank">
+                <%= url.long_url %>
+              </a>
+            </td>
+            <td>
+              <% if current_user && current_user.id == url.user_id %>
+                <a href="<%= edit_url_path(url) %>">
+                  <button class="btn btn-primary">Edit</button>
+                </a>
+              <% else %>
+                <button class="btn btn-secondary" disabled>Not allowed</button>
+              <% end %>
+            </td>
+            <td>
+              <% if current_user && current_user.id == url.user_id %>
+                <%= form_with url: url_path(url), method: :delete, local: true do %>
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                <% end %>
+              <% else %>
+                <button class="btn btn-secondary" disabled>Not allowed</button>
+              <% end %>
             </td>
           </tr>
-          <% end %>
+        <% end %>
       </tbody>
     </table>
   </main>
@@ -49,14 +69,14 @@
   <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous" ></script>
+    crossorigin="anonymous"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous" ></script>
+    crossorigin="anonymous"></script>
   <script
     src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous" ></script>
+    crossorigin="anonymous"></script>
 </body>
 </html>
