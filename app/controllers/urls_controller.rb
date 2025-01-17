@@ -14,6 +14,8 @@ class UrlsController < ApplicationController
 
   def create
     @url = Url.new(url_params)
+    @url.short_url = generate_random_string
+    
     if @url.save
       redirect_to @url, notice: 'URL successfully created'
     else
