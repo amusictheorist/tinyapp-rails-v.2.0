@@ -43,7 +43,7 @@
             </td>
             <td>
               <% if current_user && current_user.id == url.user_id %>
-                <a href="<%= edit_url_path(url) %>">
+                <a href="<%= url_path(url.short_url) %>">
                   <button class="btn btn-primary">Edit</button>
                 </a>
               <% else %>

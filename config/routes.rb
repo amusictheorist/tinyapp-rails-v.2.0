@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "urls#index"
-  resources :urls, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :urls, only: [:index, :new, :create, :show, :edit, :update, :destroy], param: :short_url
   resources :users, only: [:new, :create, :show]
 
   get '/login', to: 'users#login'

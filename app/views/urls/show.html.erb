@@ -24,16 +24,22 @@
       <div class="card-body">
         <h5 class="card-title">TinyURL for: <%= @url.long_url %></h5>
         <p class="card-text">
-          Short URL ID:
-          <%= link_to @url.short_url, short_url_path(@url.short_url) %>
+          Short URL ID: <a href="<%= url_path(@url.short_url) %>"><%= @url.short_url %></a>
         </p>
       </div>
+      <% if current_user && current_user.id == @url.user_id %>
       <div class="card-footer text-muted">
-        <%= form_with url: url_path(@url), method: :patch, class: "form-inline" do |form| %>
-        <%= form.label :long_url, "New URL: ", class: "sr-only" %>
-        <%= form.text_field :long_url, value: @url.long_url, class: "form-control" required: true %>
-        <%= form.submit "Submit", class==="btn btn-primary mt-2" %>
+        <%= form_with url: url_path(@url.short_url), method: :patch do %>
+        <label for="longURL">New URL:</label>
+        <%= text_field_tag :longURL, @url.long_url, class: "form-control", required: true %>
+        <%= submit_tag "Submit", class: "btn btn-primary mt-2" %>
+        <% end %>
       </div>
+      <% else %>
+      <div class="card-footer text-muted">
+        <p class="text-danger">You do not have permission to edit this URL!</p>
+      </div>
+      <% end %>
     </div>
   </main>
 
